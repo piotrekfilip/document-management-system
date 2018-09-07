@@ -21,22 +21,43 @@
 
 package com.openkm.rest.endpoint;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.openkm.bean.ResultSet;
 import com.openkm.core.MimeTypeConfig;
 import com.openkm.dao.bean.QueryParams;
 import com.openkm.module.ModuleManager;
 import com.openkm.module.SearchModule;
 import com.openkm.rest.GenericException;
-import com.openkm.rest.util.*;
+import com.openkm.rest.util.DocumentList;
+import com.openkm.rest.util.KeywordMap;
+import com.openkm.rest.util.KeywordMapList;
+import com.openkm.rest.util.QueryParamsList;
+import com.openkm.rest.util.QueryResultList;
 import com.openkm.util.ISO8601;
-import io.swagger.annotations.Api;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.*;
-import java.util.Map.Entry;
+import io.swagger.annotations.Api;
 
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

@@ -21,28 +21,48 @@
 
 package com.openkm.rest.endpoint;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.openkm.api.OKMMail;
 import com.openkm.automation.AutomationException;
 import com.openkm.bean.Mail;
-import com.openkm.core.*;
+import com.openkm.core.AccessDeniedException;
+import com.openkm.core.DatabaseException;
+import com.openkm.core.FileSizeExceededException;
+import com.openkm.core.ItemExistsException;
+import com.openkm.core.MimeTypeConfig;
+import com.openkm.core.PathNotFoundException;
+import com.openkm.core.RepositoryException;
+import com.openkm.core.UnsupportedMimeTypeException;
+import com.openkm.core.UserQuotaExceededException;
+import com.openkm.core.VirusDetectedException;
 import com.openkm.extension.core.ExtensionException;
 import com.openkm.module.MailModule;
 import com.openkm.module.ModuleManager;
 import com.openkm.rest.GenericException;
 import com.openkm.rest.util.MailList;
 import com.openkm.util.PathUtils;
-import io.swagger.annotations.Api;
-import org.apache.commons.io.IOUtils;
-import org.apache.cxf.jaxrs.ext.multipart.Attachment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.mail.MessagingException;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
+import io.swagger.annotations.Api;
 
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

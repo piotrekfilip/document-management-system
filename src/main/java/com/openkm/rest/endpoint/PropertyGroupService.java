@@ -21,7 +21,30 @@
 
 package com.openkm.rest.endpoint;
 
-import com.openkm.bean.form.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.openkm.bean.form.CheckBox;
+import com.openkm.bean.form.FormElement;
+import com.openkm.bean.form.Input;
+import com.openkm.bean.form.Option;
+import com.openkm.bean.form.Select;
+import com.openkm.bean.form.SuggestBox;
+import com.openkm.bean.form.TextArea;
 import com.openkm.core.Config;
 import com.openkm.core.MimeTypeConfig;
 import com.openkm.module.ModuleManager;
@@ -32,16 +55,8 @@ import com.openkm.rest.util.PropertyGroupList;
 import com.openkm.rest.util.SimplePropertyGroup;
 import com.openkm.rest.util.SimplePropertyGroupList;
 import com.openkm.ws.util.FormElementComplex;
-import io.swagger.annotations.Api;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.StringTokenizer;
+import io.swagger.annotations.Api;
 
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
