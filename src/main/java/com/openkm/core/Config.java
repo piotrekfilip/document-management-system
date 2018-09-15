@@ -21,23 +21,6 @@
 
 package com.openkm.core;
 
-import com.openkm.bean.ConfigStoredFile;
-import com.openkm.dao.ConfigDAO;
-import com.openkm.dao.SearchDAO;
-import com.openkm.extractor.RegisteredExtractors;
-import com.openkm.module.db.stuff.DbSimpleAccessManager;
-import com.openkm.module.db.stuff.FsDataStore;
-import com.openkm.principal.DatabasePrincipalAdapter;
-import com.openkm.util.EnvironmentDetector;
-import com.openkm.util.FormatUtil;
-import com.openkm.validator.password.NoPasswordValidator;
-import com.openkm.vernum.MajorMinorVersionNumerationAdapter;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.util.Version;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -49,6 +32,25 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
+
+import javax.servlet.ServletContext;
+
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.openkm.bean.ConfigStoredFile;
+import com.openkm.dao.ConfigDAO;
+import com.openkm.dao.SearchDAO;
+import com.openkm.extractor.RegisteredExtractors;
+import com.openkm.module.db.stuff.DbSimpleAccessManager;
+import com.openkm.module.db.stuff.FsDataStore;
+import com.openkm.principal.DatabasePrincipalAdapter;
+import com.openkm.util.EnvironmentDetector;
+import com.openkm.util.FormatUtil;
+import com.openkm.validator.password.NoPasswordValidator;
+import com.openkm.vernum.MajorMinorVersionNumerationAdapter;
 
 public class Config {
 	private static Logger log = LoggerFactory.getLogger(Config.class);
@@ -150,6 +152,7 @@ public class Config {
 	public static final String PROPERTY_SEND_MAIL_FROM_USER = "send.mail.from.user";
 	public static final String PROPERTY_DEFAULT_USER_ROLE = "default.user.role";
 	public static final String PROPERTY_DEFAULT_ADMIN_ROLE = "default.admin.role";
+	public static final String PROPERTY_WEBSERVICES_VISIBLE_PROPERTIES = "webservices.visible.properties";
 
 	// Text extractors
 	public static final String PROPERTY_REGISTERED_TEXT_EXTRACTORS = "registered.text.extractors";
@@ -417,6 +420,8 @@ public class Config {
 
 	public static String DEFAULT_USER_ROLE = "ROLE_USER";
 	public static String DEFAULT_ADMIN_ROLE = "ROLE_ADMIN";
+
+	public static List<String> WEBSERVICES_VISIBLE_PROPERTIES = new ArrayList<>();
 
 	// Text extractors
 	public static List<String> REGISTERED_TEXT_EXTRACTORS = new ArrayList<String>();
@@ -871,6 +876,9 @@ public class Config {
 			values.put(PROPERTY_DEFAULT_USER_ROLE, DEFAULT_USER_ROLE);
 			DEFAULT_ADMIN_ROLE = ConfigDAO.getString(PROPERTY_DEFAULT_ADMIN_ROLE, cfg.getProperty(PROPERTY_DEFAULT_ADMIN_ROLE, DEFAULT_ADMIN_ROLE));
 			values.put(PROPERTY_DEFAULT_ADMIN_ROLE, DEFAULT_ADMIN_ROLE);
+
+			WEBSERVICES_VISIBLE_PROPERTIES = ConfigDAO.getList(PROPERTY_WEBSERVICES_VISIBLE_PROPERTIES, PROPERTY_RESTRICT_FILE_NAME);
+            values.put(PROPERTY_WEBSERVICES_VISIBLE_PROPERTIES, String.valueOf(WEBSERVICES_VISIBLE_PROPERTIES));
 
 			// Set max search clauses
 			BooleanQuery.setMaxClauseCount(MAX_SEARCH_CLAUSES);
