@@ -123,9 +123,9 @@ public class RepositoryImporter {
 		ma.setRestoreUuid(uuid);
 		Gson gson = new Gson();
 
-		for (int i = 0; i < files.length; i++) {
-			String fileName = files[i].getName();
-
+		for (int i = 0; i < files.length; i++) {		    
+		    String fileName = PathUtils.escape(files[i].getName());
+		    
 			if (!fileName.endsWith(Config.EXPORT_METADATA_EXT)) {
 				if (files[i].isDirectory()) {
 					Folder fld = new Folder();
@@ -144,8 +144,9 @@ public class RepositoryImporter {
 								FolderMetadata fmd = gson.fromJson(fr, FolderMetadata.class);
 								fr.close();
 
-								// Apply metadata
-								fld.setPath(fldPath + "/" + fileName);
+								// Apply metadata - folder name in disk may be different from folder name in metadata
+                                // because some characters are stripped to prevent problems with filesystem.
+								fld.setPath(fldPath + "/" + PathUtils.getName(fmd.getPath()));								
 								fmd.setPath(fld.getPath());
 								ma.importWithMetadata(fmd);
 
